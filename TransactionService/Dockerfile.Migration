@@ -1,0 +1,32 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Install EF tool
+RUN dotnet tool install --global dotnet-ef --version 9.0.0
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+# Restore packages
+WORKDIR /src
+
+COPY ["src/Presentation/TransactionService.Presentation/TransactionService.Api/TransactionService.Api.csproj","src/Presentation/TransactionService.Presentation/TransactionService.Api/"]
+COPY ["src/Application/TransactionService.Application/TransactionService.Application.csproj","src/Application/TransactionService.Application/"]
+COPY ["src/Application/TransactionService.Messages/TransactionService.Messages.csproj","src/Application/TransactionService.Messages/"]
+COPY ["src/Domain/TransactionService.Domain.csproj","src/Domain/"]
+COPY ["src/Infrastructure/TransactionService.Infrastructure/TransactionService.Infrastructure.csproj","src/Infrastructure/TransactionService.Infrastructure/"]
+COPY ["src/Infrastructure/TransactionService.Persistence.Sql/TransactionService.Persistence.Sql.csproj","src/Infrastructure/TransactionService.Persistence.Sql/"]
+
+RUN dotnet restore "./src/Presentation/TransactionService.Presentation/TransactionService.Api/TransactionService.Api.csproj"
+COPY . .
+
+RUN dotnet build "./src/Presentation/TransactionService.Presentation/TransactionService.Api/TransactionService.Api.csproj" -c Release --no-restore -o /app/build
+RUN dotnet ef migrations bundle -p src/Infrastructure/TransactionService.Persistence.Sql/TransactionService.Persistence.Sql.csproj -s src/Presentation/TransactionService.Presentation/TransactionService.Api/TransactionService.Api.csproj --configuration Release --self-contained -r linux-x64 --force
+
+
+FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy AS run
+USER $APP_UID
+ENV MIGRATION="1"
+
+WORKDIR /app
+COPY --from=build /src/efbundle .
+COPY --from=build /src/src/Presentation/TransactionService.Presentation/TransactionService.Api/appsettings.* ./
+
+ENTRYPOINT if [ "$MIGRATIONNAME" != "" ]; then ./efbundle "$MIGRATIONNAME"; else ./efbundle ; fi

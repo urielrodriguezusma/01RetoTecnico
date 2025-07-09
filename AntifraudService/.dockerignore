@@ -1,0 +1,6 @@
+**/.dockerignore
+**/.gitignore
+**/obj
+**/bin
+**/.project
+**/template.json

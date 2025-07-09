@@ -1,0 +1,30 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+ENV ASPNETCORE_URLS=http://+:80
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["src/Presentation/AntifraudService.Worker/AntifraudService.Worker.csproj","src/Presentation/AntifraudService.Worker/"]
+COPY ["src/Application/AntifraudService.Application/AntifraudService.Application.csproj","src/Application/AntifraudService.Application/"]
+COPY ["src/Application/AntifraudService.Messages/AntifraudService.Messages.csproj","src/Application/AntifraudService.Messages/"]
+COPY ["src/Domain/AntifraudService.Domain.csproj","src/Application/AntifraudService.Domain/"]
+COPY ["src/Infrastructure/AntifraudService.Infrastructure/AntifraudService.Infrastructure.csproj","src/Infrastructure/AntifraudService.Infrastructure/"]
+COPY ["src/Infrastructure/AntifraudService.Persistence.Sql/AntifraudService.Persistence.Sql.csproj","src/Infrastructure/Persistence/AntifraudService.Persistence.Sql/"]
+
+RUN dotnet restore "src/Presentation/AntifraudService.Worker/AntifraudService.Worker.csproj"
+COPY . .
+WORKDIR "src/Presentation/AntifraudService.Worker"
+RUN dotnet build "./AntifraudService.Worker.csproj" -c Release -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./AntifraudService.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/publish
+
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "AntifraudService.Worker.dll"]

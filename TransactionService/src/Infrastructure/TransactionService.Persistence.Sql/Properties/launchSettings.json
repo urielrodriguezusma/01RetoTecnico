@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "TransactionService.Persistence.Sql": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64482;http://localhost:64483"
+    }
+  }
+}
