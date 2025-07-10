@@ -25,8 +25,8 @@ This project is conformed with two Microservices: TransacionService and Antifrau
 To execute the project you just need to locate the file ***docker-compose.yml*** and run the command
 
     docker compose --env-file .env.local up -d
-By default the project will be executed using RabbitMQ however it is prepared to execute kafka you just need to change the **.env.local** file and set-up the variable KAFKACONNECTIONSTRING with the connection and also 
-RABBITMQENABLED in false. The system is prepared to work with RabbitMQ and kafka, this can be achieve thanks to masstransit library that allows you to abstract the implementation of the the messages system and use Kafka, RabbitMQ, AzureService Bus and so on.
+By default the project will be executed using RabbitMQ however the configuration is prepering to work with kafka you just need to change the **.env.local** file and set-up the variable KAFKACONNECTIONSTRING with the connection and also 
+RABBITMQENABLED in false. The system is prepared to work with RabbitMQ and kafka (WIP), this can be achieve thanks to masstransit library that allows you to abstract the implementation of the the messages system and use Kafka, RabbitMQ, AzureService Bus and so on.
 
 
 
