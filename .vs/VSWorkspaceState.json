@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AntifraudService",
     "\\AntifraudService\\src",
     "\\AntifraudService\\src\\Application",
-    "\\AntifraudService\\src\\Presentation"
+    "\\AntifraudService\\src\\Presentation",
+    "\\TransactionService\\src",
+    "\\TransactionService\\src\\Domain",
+    "\\TransactionService\\src\\Domain\\Transaction",
+    "\\TransactionService\\src\\Domain\\Transaction\\Enums"
   ],
   "PreviewInSolutionExplorer": false
 }
