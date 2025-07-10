@@ -34,6 +34,6 @@ public sealed class CreateTransactionCommandHandler : IRequestHandler<CreateTran
             TransferId = newTransaction.TransferId,
             AccountId = newTransaction.SourceAccountId,
         }, cancellationToken);
-        return new CreateTransactionResponse { TransferId = newTransaction.TransferId };
+        return new CreateTransactionResponse { TransferExternalId = newTransaction.TransferId, CreatedAt = newTransaction.CreateAt };
     }
 }

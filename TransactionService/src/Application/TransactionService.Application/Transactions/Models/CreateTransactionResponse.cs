@@ -1,5 +1,6 @@
 ﻿namespace TransactionService.Application.Transactions.Models;
 public class CreateTransactionResponse
 {
-    public Guid TransferId { get; set; }
+    public Guid TransferExternalId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 }
