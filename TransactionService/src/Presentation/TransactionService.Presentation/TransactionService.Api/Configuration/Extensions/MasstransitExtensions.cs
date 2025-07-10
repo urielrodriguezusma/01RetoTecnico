@@ -43,7 +43,6 @@ public static class MasstransitExtensions
                 serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 return serializerOptions;
             });
-            //cfg.UseConsumeFilter(typeof(RetriveCustomHeaderConsumeFilter<>), context);
             cfg.ConfigureEndpoints(context);
             cfg.UseKillSwitch(options => options
                .SetActivationThreshold(10)

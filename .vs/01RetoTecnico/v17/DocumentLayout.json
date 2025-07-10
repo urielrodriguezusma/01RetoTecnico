@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Uriel\\01RetoTecnico\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Uriel\\01RetoTecnico\\TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 232,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 48,
           "Children": [
             {
               "$type": "Bookmark",
@@ -202,6 +207,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:134:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TransactionStatus.cs",
+              "DocumentMoniker": "C:\\Uriel\\01RetoTecnico\\TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs",
+              "RelativeDocumentMoniker": "TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs",
+              "ToolTip": "C:\\Uriel\\01RetoTecnico\\TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs",
+              "RelativeToolTip": "TransactionService\\src\\Domain\\Transaction\\Enums\\TransactionStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T23:43:48.642Z",
+              "EditorCaption": ""
             }
           ]
         }

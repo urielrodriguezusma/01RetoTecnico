@@ -1,8 +1,10 @@
 ﻿using AntifraudService.Domain;
 using AntifraudService.Infrastructure.Configurations.Options;
 using AntifraudService.Persistence.Sql;
+using AntifraudService.Worker.Transactions.Consumers;
 using MassTransit;
 using System.Text.Json.Serialization;
+using TransactionService.Messages.Transaction;
 
 namespace AntifraudService.Worker.Configuration;
 public static class MasstransitExtensions
@@ -42,7 +44,6 @@ public static class MasstransitExtensions
                 serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 return serializerOptions;
             });
-            //cfg.UseConsumeFilter(typeof(RetriveCustomHeaderConsumeFilter<>), context);
             cfg.ConfigureEndpoints(context);
             cfg.UseKillSwitch(options => options
                .SetActivationThreshold(10)
@@ -59,6 +60,16 @@ public static class MasstransitExtensions
             rider.UsingKafka((context, k) =>
             {
                 k.Host(busOptions.KafkaConnectionString);
+                k.TopicEndpoint<TransactionCreated>("transaction-created", "transfer-group", d =>
+                {
+                    d.ConfigureConsumer<OnTransactionCreatedThenValidateStatus>(context);
+                });
+
+            });
+
+            rider.AddConsumer<OnTransactionCreatedThenValidateStatus>(context =>
+            {
+                context.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
             });
         });
     }
