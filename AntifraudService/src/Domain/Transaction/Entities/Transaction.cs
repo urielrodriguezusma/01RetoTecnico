@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿
+using AntifraudService.Domain.Transaction.Enums;
 
 namespace AntifraudService.Domain.Transaction.Entities;
 public class Transaction
