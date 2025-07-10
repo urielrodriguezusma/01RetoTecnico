@@ -63,6 +63,8 @@ public static class MassTransitExtensions
                 k.TopicEndpoint<TransactionValidated>("transaction-validated", "transfer-group", d =>
                 {
                     d.ConfigureConsumer<OnTransactionValidatedThenUpdateTransactionStatus>(context);
+                    d.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
+                    d.PartitionAssignmentStrategy = Confluent.Kafka.PartitionAssignmentStrategy.CooperativeSticky;
                 });
             });
 
