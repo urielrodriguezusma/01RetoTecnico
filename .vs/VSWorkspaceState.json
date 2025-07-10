@@ -1,13 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\AntifraudService\\src",
-    "\\AntifraudService\\src\\Application",
-    "\\AntifraudService\\src\\Presentation",
-    "\\TransactionService\\src",
-    "\\TransactionService\\src\\Domain",
-    "\\TransactionService\\src\\Domain\\Transaction",
-    "\\TransactionService\\src\\Domain\\Transaction\\Enums"
+    ""
   ],
+  "SelectedNode": "\\AntifraudService.sln",
   "PreviewInSolutionExplorer": false
 }
