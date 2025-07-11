@@ -46,8 +46,7 @@ services:
         sleep 5;
       done;
       echo 'SQL Sql ready';
-      ./efbundle ${MIGRATIONNAME:-''}
-      "
+      ./efbundle ${MIGRATIONNAME:-''}"
   transaction-service:
         container_name: transaction-service
         environment:

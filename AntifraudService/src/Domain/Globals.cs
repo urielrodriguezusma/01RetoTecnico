@@ -7,6 +7,7 @@ public static class Globals
     #endregion
     #region Transactions
     public const decimal LimitPerDay = 20_000;
+    public const decimal LimitTransactionValue = 2_000;
     #endregion
 
 

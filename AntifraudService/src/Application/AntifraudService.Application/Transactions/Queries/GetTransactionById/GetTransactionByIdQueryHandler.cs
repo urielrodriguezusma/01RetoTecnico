@@ -19,13 +19,19 @@ public sealed class GetTransactionByIdQueryHandler : IRequestHandler<GetTransact
     }
     public async Task Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
     {
-        var totalTransactionsInCurrentDay = await _transactionRepository.GetTotalValueInCurrentDayByAccountId(request.AccountId, cancellationToken);
         TransactionValidated transactionValidated;
+        var currentTransaction = await _transactionRepository.GetByIdAsync(request.TransferId, cancellationToken);
 
-        if (totalTransactionsInCurrentDay <= Globals.LimitPerDay)
-            transactionValidated = new(request.TransferId, TransactionStatus.Approved);
-        else
+        if (currentTransaction!.Value > Globals.LimitTransactionValue)
             transactionValidated = new(request.TransferId, TransactionStatus.Rejected);
+        else
+        {
+            var totalTransactionsInCurrentDay = await _transactionRepository.GetTotalValueInCurrentDayByAccountId(request.AccountId, cancellationToken);
+            if (totalTransactionsInCurrentDay <= Globals.LimitPerDay)
+                transactionValidated = new(request.TransferId, TransactionStatus.Approved);
+            else
+                transactionValidated = new(request.TransferId, TransactionStatus.Rejected);
+        }
 
         await _publishEndpoint.Publish(transactionValidated, cancellationToken);
     }

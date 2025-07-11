@@ -14,6 +14,7 @@ public class Transaction
     {
         TransferId = Guid.NewGuid();
         CreateAt = DateTime.UtcNow;
+        Status = TransactionStatus.Pending;
     }
 
     public static Transaction Create(Guid sourceAccountId, Guid targetAccountId, decimal value)

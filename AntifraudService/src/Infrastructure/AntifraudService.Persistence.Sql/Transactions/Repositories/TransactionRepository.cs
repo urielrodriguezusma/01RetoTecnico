@@ -1,4 +1,5 @@
 ﻿using AntifraudService.Application.Transactions.Repositories;
+using AntifraudService.Domain.Transaction.Entities;
 using AntifraudService.Domain.Transaction.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,12 @@ public class TransactionRepository : ITransactionReadModelRepository
     public TransactionRepository(AntifraudDbContext dbContext)
     {
         _dbContext = dbContext;
+    }
+
+    public async Task<Transaction?> GetByIdAsync(Guid transferId, CancellationToken cancellationToken = default)
+    {
+        var currentTransaction = await _dbContext.FindAsync<Transaction>(transferId, cancellationToken);
+        return currentTransaction;
     }
 
     public async Task<decimal> GetTotalValueInCurrentDayByAccountId(Guid accountId, CancellationToken cancellationToken = default)
